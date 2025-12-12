@@ -15,10 +15,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title:
-    "Sanctuary Pharmacy – Harare | Affordable Medication, Fast Service",
+  title: "Dis-Pharm Pharmacy — Harare, Zimbabwe | Affordable Healthcare, Fast Service",
   description:
-    "Sanctuary Pharmacy is a modern community pharmacy in Harare offering chronic meds, OTC, baby & mother care, wellness supplements, same-day delivery, and 24/7 voice agent support.",
+    "Dis-Pharm Pharmacy is a trusted community pharmacy in Harare providing chronic medication, OTC products, same-day delivery, and 24/7 stock enquiries via WhatsApp and voice agent.",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({

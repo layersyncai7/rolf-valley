@@ -1,4 +1,4 @@
-Sanctuary Pharmacy - Project Todos
+Dis-Pharm Pharmacy - Project Todos
 Core Structure
  Create main page layout with all sections
  Add navigation bar with logo and menu

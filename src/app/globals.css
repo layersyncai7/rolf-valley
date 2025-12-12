@@ -10,7 +10,7 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 210 90% 48%;
+    --primary: 159 75% 40%;
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -37,9 +37,9 @@
 }
 
 .gradient-hero {
-  background: linear-gradient(135deg, #E8D5F2 0%, #D4E4F7 50%, #F5E6F1 100%);
+  background: linear-gradient(135deg, #E8F7F0 0%, #D8F0E6 50%, #E8F7F0 100%);
 }
 
 .gradient-delivery {
-  background: linear-gradient(135deg, #C5D9F5 0%, #E8D5F2 100%);
+  background: linear-gradient(135deg, #E6F9F0 0%, #CFF0E0 100%);
 }
