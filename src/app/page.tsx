@@ -31,9 +31,7 @@ export default function Home() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-[#1AB27C] rounded-lg flex items-center justify-center">
-                <Heart className="w-6 h-6 text-white fill-white" />
-              </div>
+              <img src="/logo.png" alt="Dis-Pharm Logo" className="w-10 h-10 rounded-lg object-cover" />
               <span className="text-2xl font-bold text-gray-900">
                 Dis-Pharm Pharmacy
               </span>
@@ -662,9 +660,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 bg-[#1AB27C] rounded-lg flex items-center justify-center">
-                  <Heart className="w-6 h-6 text-white fill-white" />
-                </div>
+                <img src="/logo.png" alt="Dis-Pharm Logo" className="w-10 h-10 rounded-lg object-cover" />
                 <span className="text-xl font-bold">Dis-Pharm Pharmacy</span>
               </div>
               <p className="text-gray-400 text-sm">
