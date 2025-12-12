@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -21,68 +23,88 @@ import {
   ChevronRight,
   Plus,
   CheckCircle2,
+  Moon,
+  Sun,
 } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("dis-pharm-dark-mode");
+    if (saved) setIsDark(JSON.parse(saved));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("dis-pharm-dark-mode", JSON.stringify(isDark));
+  }, [isDark]);
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className={`min-h-screen ${isDark ? "bg-gray-900" : "bg-white"}`}>
       {/* Navigation */}
-      <nav className="border-b bg-white sticky top-0 z-50">
+      <nav className={`border-b ${isDark ? "bg-gray-800 border-gray-700" : "bg-white"} sticky top-0 z-50`}>
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <img src="/logo.png" alt="Dis-Pharm Logo" className="w-10 h-10 rounded-lg object-cover" />
-              <span className="text-2xl font-bold text-gray-900">
+              <span className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
                 Dis-Pharm Pharmacy
               </span>
             </div>
             <div className="hidden md:flex items-center gap-8">
-              <a href="#home" className="text-gray-700 hover:text-[#1AB27C]">
+              <a href="#home" className={`${isDark ? "text-gray-300 hover:text-[#1AB27C]" : "text-gray-700 hover:text-[#1AB27C]"}`}>
                 Home
               </a>
-              <a href="#doctor" className="text-gray-700 hover:text-[#1AB27C]">
+              <a href="#doctor" className={`${isDark ? "text-gray-300 hover:text-[#1AB27C]" : "text-gray-700 hover:text-[#1AB27C]"}`}>
                 Doctor
               </a>
               <a
                 href="#services"
-                className="text-gray-700 hover:text-[#1AB27C]"
+                className={`${isDark ? "text-gray-300 hover:text-[#1AB27C]" : "text-gray-700 hover:text-[#1AB27C]"}`}
               >
                 Services
               </a>
-              <a href="#products" className="text-gray-700 hover:text-[#1AB27C]">
+              <a href="#products" className={`${isDark ? "text-gray-300 hover:text-[#1AB27C]" : "text-gray-700 hover:text-[#1AB27C]"}`}>
                 Products
               </a>
             </div>
             <div className="flex items-center gap-4">
-              <Button className="bg-[#1AB27C] hover:bg-[#0855c7] hidden md:flex">
+              <Button className="bg-[#1AB27C] hover:bg-[#158a66] hidden md:flex">
                 Book Appointment
                 <ChevronRight className="w-4 h-4 ml-1" />
               </Button>
-              <Search className="w-5 h-5 text-gray-700 cursor-pointer" />
-              <ShoppingCart className="w-5 h-5 text-gray-700 cursor-pointer" />
+              <button
+                onClick={() => setIsDark(!isDark)}
+                className={`p-2 rounded-lg ${isDark ? "bg-gray-700 text-yellow-400" : "bg-gray-100 text-gray-700"}`}
+              >
+                {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </button>
+              <Search className={`w-5 h-5 cursor-pointer ${isDark ? "text-gray-300" : "text-gray-700"}`} />
+              <ShoppingCart className={`w-5 h-5 cursor-pointer ${isDark ? "text-gray-300" : "text-gray-700"}`} />
             </div>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="gradient-hero py-20 relative overflow-hidden">
+      <section className={`gradient-hero py-20 relative overflow-hidden ${isDark ? "bg-gradient-to-br from-gray-800 to-gray-900" : ""}`}>
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-              <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
+              <div className={`inline-flex items-center gap-2 ${isDark ? "bg-gray-700" : "bg-white"} px-4 py-2 rounded-full shadow-sm`}>
                 <Activity className="w-4 h-4 text-[#1AB27C]" />
-                <span className="text-sm font-medium">Insights</span>
-                <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-100">
+                <span className={`text-sm font-medium ${isDark ? "text-white" : ""}`}>Insights</span>
+                <Badge className={`${isDark ? "bg-green-900 text-green-200" : "bg-yellow-100 text-yellow-800"} hover:bg-opacity-80`}>
                   NEW
                 </Badge>
               </div>
-              <h1 className="text-6xl font-bold text-gray-900 leading-tight">
+              <h1 className={`text-6xl font-bold ${isDark ? "text-white" : "text-gray-900"} leading-tight`}>
                 Your Family
                 <br />
-                <span className="text-gray-600">Pharmacy</span> in Harare
+                <span className={`${isDark ? "text-gray-300" : "text-gray-600"}`}>Pharmacy</span> in Harare
               </h1>
-              <p className="text-lg text-gray-600 max-w-md">
+              <p className={`text-lg ${isDark ? "text-gray-300" : "text-gray-600"} max-w-md`}>
                 Chronic meds, OTC essentials, baby care, wellness supplements, and fast delivery — all under one roof.
               </p>
               <div className="flex flex-wrap items-center gap-4">
@@ -92,20 +114,20 @@ export default function Home() {
                 </Button>
                 <a
                   href="https://wa.me/263782213344?text=Hi%20Dis-Pharm%20Pharmacy%2C%20please%20check%20stock%20for..."
-                  className="inline-flex items-center gap-2 rounded-full border px-6 py-3 text-sm font-medium hover:bg-gray-50"
+                  className={`inline-flex items-center gap-2 rounded-full border px-6 py-3 text-sm font-medium ${isDark ? "border-gray-600 text-gray-300 hover:bg-gray-700" : "hover:bg-gray-50"}`}
                 >
                   <Search className="w-4 h-4" /> Check Stock (WhatsApp)
                 </a>
                 <a
                   href="tel:+263775520091"
-                  className="inline-flex items-center gap-2 rounded-full border px-6 py-3 text-sm font-medium hover:bg-gray-50"
+                  className={`inline-flex items-center gap-2 rounded-full border px-6 py-3 text-sm font-medium ${isDark ? "border-gray-600 text-gray-300 hover:bg-gray-700" : "hover:bg-gray-50"}`}
                 >
                   <Phone className="w-4 h-4" /> Call 24/7 Voice Agent
                 </a>
               </div>
-              <div className="bg-white p-6 rounded-2xl shadow-lg inline-block">
-                <div className="text-5xl font-bold text-gray-900">24/7</div>
-                <div className="text-sm text-gray-600 mt-1">Stock Checking Support</div>
+              <div className={`${isDark ? "bg-gray-700" : "bg-white"} p-6 rounded-2xl shadow-lg inline-block`}>
+                <div className={`text-5xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>24/7</div>
+                <div className={`text-sm ${isDark ? "text-gray-300" : "text-gray-600"} mt-1`}>Stock Checking Support</div>
               </div>
             </div>
             <div className="relative">
@@ -124,7 +146,7 @@ export default function Home() {
       </section>
 
       {/* Popular Categories */}
-      <section className="py-20 bg-white">
+      <section className={`py-20 ${isDark ? "bg-gray-800" : "bg-white"}`}>
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Our Popular Categories</h2>
           <div className="grid grid-cols-2 md:grid-cols-6 gap-8">
@@ -175,17 +197,17 @@ export default function Home() {
       </section>
 
       {/* Today's Best Offer */}
-      <section className="py-20 bg-gray-50">
+      <section className={`py-20 ${isDark ? "bg-gray-800" : "bg-gray-50"}`}>
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-12">
-            <h2 className="text-4xl font-bold text-gray-900">
+            <h2 className={`text-4xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
               Todays Best Offer
               <br />
-              <span className="text-2xl font-normal text-gray-600">
+              <span className={`text-2xl font-normal ${isDark ? "text-gray-300" : "text-gray-600"}`}>
                 Just For You
               </span>
             </h2>
-            <Button variant="outline" className="hidden md:flex">
+            <Button variant="outline" className={`hidden md:flex ${isDark ? "border-gray-600 text-gray-300 hover:bg-gray-700" : ""}`}>
               See more
               <ChevronRight className="w-4 h-4 ml-2" />
             </Button>
@@ -217,19 +239,19 @@ export default function Home() {
                   "https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400&h=400&fit=crop",
               },
             ].map((product, index) => (
-              <Card key={index} className="overflow-hidden group cursor-pointer">
+              <Card key={index} className={`overflow-hidden group cursor-pointer ${isDark ? "bg-gray-700 border-gray-600" : "bg-white"}`}>
                 <div className="relative">
                   <div className="absolute top-4 left-4 z-10">
-                    <Badge className="bg-white text-gray-900 hover:bg-white">
+                    <Badge className={`${isDark ? "bg-gray-600 text-gray-100" : "bg-white text-gray-900"} hover:bg-opacity-80`}>
                       Nature's bounty
                     </Badge>
                   </div>
                   <div className="absolute top-4 right-4 z-10">
-                    <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-gray-50">
+                    <button className={`w-8 h-8 ${isDark ? "bg-gray-600 hover:bg-gray-500" : "bg-white hover:bg-gray-50"} rounded-full flex items-center justify-center shadow-md`}>
                       <Heart className="w-4 h-4 text-gray-600" />
                     </button>
                   </div>
-                  <div className="bg-gray-100 aspect-square flex items-center justify-center">
+                  <div className={`${isDark ? "bg-gray-600" : "bg-gray-100"} aspect-square flex items-center justify-center`}>
                     <img
                       src={product.image}
                       alt={product.name}
@@ -238,11 +260,11 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="p-4">
-                  <h3 className="font-medium text-gray-900 mb-2">
+                  <h3 className={`font-medium ${isDark ? "text-gray-100" : "text-gray-900"} mb-2`}>
                     {product.name}
                   </h3>
                   <div className="flex items-center justify-between">
-                    <span className="text-xl font-bold text-gray-900">
+                    <span className={`text-xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
                       {product.price}
                     </span>
                     <Button
@@ -261,12 +283,12 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 bg-white">
+      <section id="services" className={`py-20 ${isDark ? "bg-gray-900" : "bg-white"}`}>
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">
+          <h2 className={`text-4xl font-bold text-center ${isDark ? "text-white" : "text-gray-900"} mb-4`}>
             Our Services
           </h2>
-          <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto">
+          <p className={`text-center ${isDark ? "text-gray-300" : "text-gray-600"} mb-16 max-w-2xl mx-auto`}>
             Comprehensive pharmaceutical services tailored to meet your health
             needs
           </p>
@@ -315,15 +337,15 @@ export default function Home() {
             ].map((service, index) => (
               <Card
                 key={index}
-                className="p-6 hover:shadow-lg transition-shadow cursor-pointer"
+                className={`p-6 hover:shadow-lg transition-shadow cursor-pointer ${isDark ? "bg-gray-800 border-gray-700" : ""}`}
               >
-                <div className="w-14 h-14 bg-[#1AB27C]/10 rounded-xl flex items-center justify-center mb-4">
+                <div className={`w-14 h-14 ${isDark ? "bg-green-900/30" : "bg-[#1AB27C]/10"} rounded-xl flex items-center justify-center mb-4`}>
                   <service.icon className="w-7 h-7 text-[#1AB27C]" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">
+                <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"} mb-2`}>
                   {service.name}
                 </h3>
-                <p className="text-sm text-gray-600">{service.desc}</p>
+                <p className={`text-sm ${isDark ? "text-gray-300" : "text-gray-600"}`}>{service.desc}</p>
               </Card>
             ))}
           </div>
@@ -331,10 +353,10 @@ export default function Home() {
       </section>
 
       {/* Product Catalogue */}
-      <section id="products" className="py-20 bg-white">
+      <section id="products" className={`py-20 ${isDark ? "bg-gray-900" : "bg-white"}`}>
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">Mock Product Catalogue</h2>
-          <p className="text-center text-gray-600 mb-12">Realistic Zimbabwe pharmacy items and pricing</p>
+          <h2 className={`text-4xl font-bold text-center ${isDark ? "text-white" : "text-gray-900"} mb-4`}>Mock Product Catalogue</h2>
+          <p className={`text-center ${isDark ? "text-gray-300" : "text-gray-600"} mb-12`}>Realistic Zimbabwe pharmacy items and pricing</p>
           {(
             [
               {
@@ -414,13 +436,13 @@ export default function Home() {
           ).map((cat) => (
             <div key={cat.name} className="mb-10">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-2xl font-semibold text-gray-900">{cat.name}</h3>
+                <h3 className={`text-2xl font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>{cat.name}</h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {cat.items.map((it) => (
-                  <Card key={it.n} className="p-5 flex items-center justify-between">
-                    <div className="text-sm text-gray-800 font-medium max-w-[70%]">{it.n}</div>
-                    <div className="text-base font-semibold text-gray-900">{it.p}</div>
+                  <Card key={it.n} className={`p-5 flex items-center justify-between ${isDark ? "bg-gray-700 border-gray-600" : ""}`}>
+                    <div className={`text-sm ${isDark ? "text-gray-200" : "text-gray-800"} font-medium max-w-[70%]`}>{it.n}</div>
+                    <div className={`text-base font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>{it.p}</div>
                   </Card>
                 ))}
               </div>
@@ -430,12 +452,12 @@ export default function Home() {
       </section>
 
       {/* Seasonal Solutions */}
-      <section className="py-20 bg-gray-50">
+      <section className={`py-20 ${isDark ? "bg-gray-800" : "bg-gray-50"}`}>
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+          <h2 className={`text-4xl font-bold text-center ${isDark ? "text-white" : "text-gray-900"} mb-16`}>
             Our Seasonal
             <br />
-            <span className="text-gray-600">Exclusive Solutions</span>
+            <span className={`${isDark ? "text-gray-300" : "text-gray-600"}`}>Exclusive Solutions</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
@@ -455,7 +477,7 @@ export default function Home() {
                 color: "#FFEBEE",
               },
             ].map((solution, index) => (
-              <Card key={index} className="overflow-hidden cursor-pointer group">
+              <Card key={index} className={`overflow-hidden cursor-pointer group ${isDark ? "bg-gray-700 border-gray-600" : ""}`}>
                 <div
                   className="h-64 flex items-center justify-center relative"
                   style={{ backgroundColor: solution.color }}
@@ -467,8 +489,8 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="font-semibold text-gray-900 mb-4">{solution.title}</h3>
-                  <Button variant="outline" className="w-full">
+                  <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"} mb-4`}>{solution.title}</h3>
+                  <Button variant="outline" className={`w-full ${isDark ? "border-gray-500 text-gray-300 hover:bg-gray-600" : ""}`}>
                     Browse
                     <ChevronRight className="w-4 h-4 ml-2" />
                   </Button>
@@ -480,18 +502,18 @@ export default function Home() {
       </section>
 
       {/* Doctor Profiles */}
-      <section className="py-20 bg-white">
+      <section className={`py-20 ${isDark ? "bg-gray-900" : "bg-white"}`}>
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="bg-[#1e3a8a] text-white p-8 overflow-hidden relative">
+            <Card className={`${isDark ? "bg-green-900" : "bg-[#1e3a8a]"} text-white p-8 overflow-hidden relative`}>
               <div className="relative z-10">
                 <h3 className="text-2xl font-bold mb-2">Tawanda Mudzimba</h3>
-                <p className="text-blue-200 mb-4">
+                <p className={`${isDark ? "text-green-100" : "text-blue-200"} mb-4`}>
                   BPharm (UZ), 12 years experience
                   <br />
                   Pharmacist-in-Charge
                 </p>
-                <Button className="bg-white text-[#1e3a8a] hover:bg-gray-100">
+                <Button className={`${isDark ? "bg-white text-green-900 hover:bg-gray-100" : "bg-white text-[#1e3a8a] hover:bg-gray-100"}`}>
                   Book appointment
                   <ChevronRight className="w-4 h-4 ml-2" />
                 </Button>
@@ -505,15 +527,15 @@ export default function Home() {
               </div>
             </Card>
 
-            <Card className="bg-gray-50 p-8 overflow-hidden relative">
+            <Card className={`${isDark ? "bg-gray-700 border-gray-600" : "bg-gray-50"} p-8 overflow-hidden relative`}>
               <div className="relative z-10">
-                <h3 className="text-2xl font-bold mb-2 text-gray-900">Kundai Jiri</h3>
-                <p className="text-gray-600 mb-4">
+                <h3 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>Kundai Jiri</h3>
+                <p className={`${isDark ? "text-gray-300" : "text-gray-600"} mb-4`}>
                   Customer Care Lead
                   <br />
                   Expert in patient support
                 </p>
-                <Button variant="outline" className="border-gray-900 text-gray-900">
+                <Button variant="outline" className={`${isDark ? "border-gray-500 text-gray-300 hover:bg-gray-600" : "border-gray-900 text-gray-900"}`}>
                   Book appointment
                   <ChevronRight className="w-4 h-4 ml-2" />
                 </Button>
@@ -531,10 +553,10 @@ export default function Home() {
       </section>
 
       {/* Reviews Section */}
-      <section className="py-20 bg-gray-50">
+      <section className={`py-20 ${isDark ? "bg-gray-800" : "bg-gray-50"}`}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className={`text-4xl font-bold ${isDark ? "text-white" : "text-gray-900"} mb-4`}>
               4.5/5 review from
               <br />
               7,000+ verified customer
@@ -558,7 +580,7 @@ export default function Home() {
                 author: "Joe Silva Smith",
               },
             ].map((review, index) => (
-              <Card key={index} className="p-6">
+              <Card key={index} className={`p-6 ${isDark ? "bg-gray-700 border-gray-600" : ""}`}>
                 <div className="flex gap-1 mb-4">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
@@ -566,15 +588,15 @@ export default function Home() {
                       className={`w-5 h-5 ${
                         i < review.rating
                           ? "fill-yellow-400 text-yellow-400"
-                          : "text-gray-300"
+                          : isDark ? "text-gray-500" : "text-gray-300"
                       }`}
                     />
                   ))}
                 </div>
-                <p className="text-gray-600 mb-4 text-sm leading-relaxed">
+                <p className={`${isDark ? "text-gray-300" : "text-gray-600"} mb-4 text-sm leading-relaxed`}>
                   {review.text}
                 </p>
-                <p className="text-sm font-medium text-gray-900">
+                <p className={`text-sm font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
                   {review.author}
                 </p>
               </Card>
@@ -584,16 +606,16 @@ export default function Home() {
       </section>
 
       {/* Delivery Promotion */}
-      <section className="py-20 bg-white">
+      <section className={`py-20 ${isDark ? "bg-gray-800" : "bg-white"}`}>
         <div className="container mx-auto px-4">
-          <div className="gradient-delivery rounded-3xl p-12 relative overflow-hidden">
+          <div className={`gradient-delivery rounded-3xl p-12 relative overflow-hidden ${isDark ? "bg-gradient-to-r from-gray-700 to-gray-600" : ""}`}>
             <div className="relative z-10 max-w-xl">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              <h2 className={`text-4xl font-bold ${isDark ? "text-white" : "text-gray-900"} mb-4`}>
                 Enjoy free delivery
                 <br />
                 within 2-hours
               </h2>
-              <Button className="bg-white text-[#1AB27C] hover:bg-gray-100">
+              <Button className={`${isDark ? "bg-white text-gray-900 hover:bg-gray-100" : "bg-white text-[#1AB27C] hover:bg-gray-100"}`}>
                 Order Now
                 <ChevronRight className="w-4 h-4 ml-2" />
               </Button>
@@ -610,9 +632,9 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-gray-50">
+      <section className={`py-20 ${isDark ? "bg-gray-800" : "bg-gray-50"}`}>
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+          <h2 className={`text-4xl font-bold text-center ${isDark ? "text-white" : "text-gray-900"} mb-16`}>
             Frequently Asked Question
           </h2>
           <div className="max-w-3xl mx-auto space-y-4">
@@ -638,15 +660,15 @@ export default function Home() {
                 a: "Yes — our AI voice agent handles queries and forwards emergencies to the pharmacist.",
               },
             ].map((faq, index) => (
-              <Card key={index} className="p-6 cursor-pointer hover:shadow-md">
+              <Card key={index} className={`p-6 cursor-pointer hover:shadow-md ${isDark ? "bg-gray-700 border-gray-600" : ""}`}>
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900 mb-2">
+                    <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"} mb-2`}>
                       {faq.q}
                     </h3>
-                    <p className="text-sm text-gray-600">{faq.a}</p>
+                    <p className={`text-sm ${isDark ? "text-gray-300" : "text-gray-600"}`}>{faq.a}</p>
                   </div>
-                  <ChevronRight className="w-5 h-5 text-gray-400" />
+                  <ChevronRight className={`w-5 h-5 ${isDark ? "text-gray-500" : "text-gray-400"}`} />
                 </div>
               </Card>
             ))}
@@ -655,7 +677,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16">
+      <footer className={`${isDark ? "bg-gray-900 border-t border-gray-800" : "bg-gray-900"} text-white py-16`}>
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div>
@@ -761,13 +783,13 @@ export default function Home() {
         href="https://wa.me/263782213344"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 w-16 h-16 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-colors z-50"
+        className={`fixed bottom-6 right-6 w-16 h-16 ${isDark ? "bg-green-600 hover:bg-green-700" : "bg-green-500 hover:bg-green-600"} rounded-full flex items-center justify-center shadow-lg transition-colors z-50`}
       >
         <MessageCircle className="w-8 h-8 text-white" />
       </a>
 
       {/* Stock Check Floating Button */}
-      <button className="fixed bottom-24 right-6 bg-[#1AB27C] text-white px-6 py-3 rounded-full shadow-lg hover:bg-[#0855c7] transition-colors z-50 flex items-center gap-2">
+      <button className={`fixed bottom-24 right-6 ${isDark ? "bg-green-700 hover:bg-green-800" : "bg-[#1AB27C] hover:bg-[#158a66]"} text-white px-6 py-3 rounded-full shadow-lg transition-colors z-50 flex items-center gap-2`}>
         <Search className="w-5 h-5" />
         <span className="font-medium">Check Stock</span>
       </button>
@@ -775,7 +797,7 @@ export default function Home() {
       {/* Call Voice Agent Button */}
       <a
         href="tel:+263775520091"
-        className="fixed bottom-40 right-6 bg-[#1AB27C] text-white px-6 py-3 rounded-full shadow-lg hover:bg-[#158a66] transition-colors z-50 flex items-center gap-2"
+        className={`fixed bottom-40 right-6 ${isDark ? "bg-green-700 hover:bg-green-800" : "bg-[#1AB27C] hover:bg-[#158a66]"} text-white px-6 py-3 rounded-full shadow-lg transition-colors z-50 flex items-center gap-2`}
       >
         <Phone className="w-5 h-5" />
         <span className="font-medium">Call 24/7</span>
