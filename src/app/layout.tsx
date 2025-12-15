@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dis-Pharm Pharmacy — Harare, Zimbabwe | Affordable Healthcare, Fast Service",
+  title: "Rolf Valley Pharmacy — Borrowdale, Harare | Trusted Care for Your Family",
   description:
-    "Dis-Pharm Pharmacy is a trusted community pharmacy in Harare providing chronic medication, OTC products, same-day delivery, and 24/7 stock enquiries via WhatsApp and voice agent.",
+    "Rolf Valley Pharmacy is a neighbourhood pharmacy in Borrowdale offering chronic medication, premium skincare, mother & baby essentials, and same-day delivery with 24/7 stock queries via WhatsApp and AI voice agent.",
   icons: {
     icon: "/logo.png",
   },

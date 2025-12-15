@@ -1,4 +1,4 @@
-Dis-Pharm Pharmacy - Project Todos
+Rolf Valley Pharmacy - Project Todos
 Core Structure
  Create main page layout with all sections
  Add navigation bar with logo and menu
@@ -16,7 +16,7 @@ Additional Features
  Add WhatsApp floating button
  Add "Check Stock" CTA button
  Add "Call 24/7 Voice Agent" button
- Customize color scheme to medical blue (#0A6DED)
+ Customize color scheme to deep green (#0B7138)
  Make responsive design
  Add icons for services
 Final Steps

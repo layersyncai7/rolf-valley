@@ -28,6 +28,30 @@
 }
 
 @layer base {
+  .dark {
+    --background: 0 0% 7%; /* near-black */
+    --foreground: 0 0% 92%; /* light text */
+    --card: 0 0% 11%; /* card background */
+    --card-foreground: 0 0% 92%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 92%;
+    --primary: 157 80% 36%; /* Rolf deep green */
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 16%;
+    --secondary-foreground: 0 0% 92%;
+    --muted: 210 40% 12%;
+    --muted-foreground: 210 16% 64%;
+    --accent: 210 40% 16%;
+    --accent-foreground: 0 0% 92%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 0 0% 18%;
+    --input: 0 0% 14%;
+    --ring: 157 80% 40%;
+  }
+}
+
+@layer base {
   * {
     @apply border-border;
   }
@@ -42,4 +66,40 @@
 
 .gradient-delivery {
   background: linear-gradient(135deg, #E6F9F0 0%, #CFF0E0 100%);
+}
+
+/* Dark mode gradients (subtle) */
+.dark .gradient-hero {
+  background: linear-gradient(135deg, rgba(16,16,16,1) 0%, rgba(12,12,12,1) 100%);
+}
+.dark .gradient-delivery {
+  background: linear-gradient(135deg, rgba(18,18,18,1) 0%, rgba(20,20,20,1) 100%);
+}
+
+/* Smooth transitions for theme/color changes */
+html, body, :root, .bg-card, .bg-popover, .bg-background, .text-foreground, .text-muted-foreground, .bg-primary, .border-border {
+  transition: background-color 260ms ease, color 260ms ease, border-color 260ms ease, fill 260ms ease, stroke 260ms ease;
+}
+
+/* Improve focus states in dark mode */
+*:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(11,113,56,0.12);
+}
+
+/* Theme toggle overlay for subtle fade/slide effect */
+html::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: transparent;
+  opacity: 0;
+  transition: opacity 300ms ease, transform 300ms ease;
+  z-index: 9999;
+}
+
+html.theme-animate::before {
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(0,0,0,0.06));
+  opacity: 1;
 }
