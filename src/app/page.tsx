@@ -239,8 +239,7 @@ export default function Home() {
               {
                 name: "Vitamin C 1000mg",
                 price: "$6.00",
-                image:
-                  "https://images.unsplash.com/photo-1550572017-4950f8b03f8b?w=400&h=400&fit=crop",
+                image: "/products/vitamin-c-1000mg.svg",
               },
               {
                 name: "Revivo Multi-Vitamin",
